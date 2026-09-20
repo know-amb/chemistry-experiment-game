@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>化学実験体験ゲーム</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-bg"><div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="トップへ">
+      <div class="logo">⚗</div><div><div class="brand-title">化学実験体験ゲーム</div><div class="brand-sub">CHEMISTRY LABORATORY</div></div>
+    </a>
+    <div class="player-status">
+      <div class="status-row"><span class="level" data-player-level>Lv.1</span><span class="exp-text" data-player-exp>0 / 100 EXP</span></div>
+      <div class="exp-track"><div class="exp-bar" data-exp-bar></div></div>
+    </div>
+  </header>
+
+  <section class="hero"><h1>化学実験を体験しよう。</h1><p>3つの実験を好きな順番でプレイして、経験値を集めよう。</p></section>
+
+  <main class="cards">
+    <article class="game-card titration" data-game-card="titration">
+      <div class="card-head"><span class="card-title">滴定実験シミュレーション</span><span class="card-num">01 / LAB</span></div>
+      <div class="card-body">
+        <div class="card-desc">コックを操作して溶液を滴下。色の変化を観察しながら中和点を狙おう。</div>
+        <div class="illustration"><div class="flask"><div class="flask-neck"></div><div class="flask-body"><div class="flask-liquid"></div></div><div class="bubbles"></div></div></div>
+        <div class="score-line" data-score="titration"></div>
+        <div class="card-bottom"><a class="play-btn" href="tekitei.html">プレイする</a><span class="clear-badge">CLEAR</span></div>
+      </div>
+    </article>
+
+    <article class="game-card indicator" data-game-card="indicator">
+      <div class="card-head"><span class="card-title">指示薬クイズ</span><span class="card-num">02 / LAB</span></div>
+      <div class="card-body">
+        <div class="card-desc">メチルオレンジの色を手がかりに、3つのビーカーの性質を見分けよう。</div>
+        <div class="illustration"><div class="beakers"><div class="mini-beaker"></div><div class="mini-beaker"></div><div class="mini-beaker"></div><div class="tube"></div></div></div>
+        <div class="score-line" data-score="indicator"></div>
+        <div class="card-bottom"><a class="play-btn" href="yosyumetiru_v2.html">プレイする</a><span class="clear-badge">CLEAR</span></div>
+      </div>
+    </article>
+
+    <article class="game-card report" data-game-card="report">
+      <div class="card-head"><span class="card-title">考察レポート作成</span><span class="card-num">03 / LAB</span></div>
+      <div class="card-body">
+        <div class="card-desc">実験結果を振り返り、pH変化や中和点について考えてみよう。</div>
+        <div class="illustration"><div class="report-paper"><div class="report-lines"></div></div></div>
+        <div class="score-line" data-score="report"></div>
+        <div class="card-bottom"><a class="play-btn" href="kousatsu_report.html">プレイする</a><span class="clear-badge">CLEAR</span></div>
+      </div>
+    </article>
+  </main>
+
+  <p class="footer-note">※進行状況はこの端末・このブラウザに保存されます。</p>
+</div></div>
+<script src="game-data.js"></script>
+<script>
+  function render() {
+    ChemistryGame.renderHeader();
+    const data = ChemistryGame.load();
+    document.querySelectorAll('[data-game-card]').forEach(card => {
+      const id = card.dataset.gameCard;
+      const g = data.games[id];
+      if (g && g.cleared) card.classList.add('cleared');
+      const score = card.querySelector(`[data-score="${id}"]`);
+      if (score) score.textContent = g && g.bestScore != null ? `最高スコア：${g.bestScore} / 100` : '未クリア';
+    });
+  }
+  render();
+</script>
+</body></html>
