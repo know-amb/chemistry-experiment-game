@@ -64,7 +64,8 @@ const ChemistryGame = (() => {
 
     const oldBest = game.bestScore == null ? -1 : game.bestScore;
     const isNewBest = score > oldBest;
-    game.cleared = true;
+    // 60点以上をクリア条件とする
+    game.cleared = score >= 60;
 
     // 同じゲームを何度も遊んでもEXPを無限に稼げないよう、最高記録との差分だけ加算。
     const previousExp = game.bestExp || 0;
